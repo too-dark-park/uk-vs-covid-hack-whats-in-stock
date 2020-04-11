@@ -47,7 +47,6 @@ class App extends React.Component {
         <header className="App-header">
           <h1>WhatsIN</h1>
           <h3>Shopping!</h3>
-          https://whatsin.whiscode.dotnetcloud.co.uk/WeatherForecast
           <p>
             Low on toilet paper but the queues outside the shop are too long?
             Save yourself a trip and find what's in stock before you leave the
