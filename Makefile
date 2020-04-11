@@ -3,5 +3,5 @@ backend-run:
 
 frontend-run:
 	npm start --prefix frontend
-c
+
 .PHONY: backend-run frontend-run
