@@ -26,4 +26,4 @@ React and such
 
 ### Run locally
 You can run the backend server locally with `make backend-run`. To test this is running correctly
-run `curl https://whatsin.whiscode.dotnetcloud.co.uk/WeatherForecast`.
+run `https://localhost:5001/WeatherForecast`.
