@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import Button from "./Components/Button/Button";
 
 class App extends React.Component {
   _isMounted = false;
@@ -53,6 +54,10 @@ class App extends React.Component {
             house.
           </p>
         </header>
+        <section>
+          <Button>YES</Button>
+          <Button>NO</Button>
+        </section>
         <footer>
           <a
             className="App-link"
