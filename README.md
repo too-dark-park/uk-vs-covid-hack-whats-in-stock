@@ -5,15 +5,25 @@ An app where users can share information about current stock in open shops and t
 # Development
 
 ## Backend:
-
 It's C#, .NET and all that jazz
 
-## Prerequisites
-
+### Prerequisites
 - .NET SDK (.3.1) : https://dotnet.microsoft.com/download
 
+
+### Run locally
 You can run the backend server locally with `make backend-run`. To test this is running correctly
 run `curl https://whatsin.whiscode.dotnetcloud.co.uk/WeatherForecast`.
 
 
 ## Frontend:
+React and such
+
+## Prerequisites
+- npm https://www.npmjs.com/get-npm
+- (With `npm` installed) Run the following: "`cd frontend; npm install`"
+
+
+### Run locally
+You can run the backend server locally with `make backend-run`. To test this is running correctly
+run `curl https://whatsin.whiscode.dotnetcloud.co.uk/WeatherForecast`.
