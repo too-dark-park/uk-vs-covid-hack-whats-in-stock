@@ -13,4 +13,15 @@
 
         public double Longitude { get; set; }
     }
+
+    public class User
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+
+        public int MyProperty { get; set; }
+    }
 }
