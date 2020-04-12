@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Button from "./Components/Button/Button";
+import Menu from "./layout/Menu";
 
 class App extends React.Component {
   _isMounted = false;
@@ -43,33 +44,32 @@ class App extends React.Component {
     return error ? (
       <div>Ooops... something went wrong.</div>
     ) : (
-      <div className="App">
-        {data && console.log(this.state.data)}
-        <header className="App-header">
-          <h1>WhatsIN</h1>
-          <h3>Shopping!</h3>
-          <p>
-            Low on toilet paper but the queues outside the shop are too long?
-            Save yourself a trip and find what's in stock before you leave the
-            house.
+        <div className="App">
+          {data && console.log(this.state.data)}
+          <header className="App-header">
+            <Menu />
+            <p>
+              Low on toilet paper but the queues outside the shop are too long?
+              Save yourself a trip and find what's in stock before you leave the
+              house.
           </p>
-        </header>
-        <section>
-          <Button>YES</Button>
-          <Button>NO</Button>
-        </section>
-        <footer>
-          <a
-            className="App-link"
-            href="https://github.com/too-dark-park/uk-vs-covid-hack-whats-in-stock"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Link to our GitHub
+          </header>
+          <section>
+            <Button>YES</Button>
+            <Button>NO</Button>
+          </section>
+          <footer>
+            <a
+              className="App-link"
+              href="https://github.com/too-dark-park/uk-vs-covid-hack-whats-in-stock"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Link to our GitHub
           </a>
-        </footer>
-      </div>
-    );
+          </footer>
+        </div>
+      );
   }
 }
 
