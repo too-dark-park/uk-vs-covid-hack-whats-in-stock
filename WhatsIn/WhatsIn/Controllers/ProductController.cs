@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using WhatsIn.Helpers;
 using WhatsIn.Services;
@@ -22,37 +24,45 @@ namespace WhatsIn.Controllers
 
         public IActionResult Add(string productName, string placeName, double? latitude, double? longitude)
         {
-            if (string.IsNullOrWhiteSpace(productName) || string.IsNullOrWhiteSpace(placeName))
+            try
             {
-                return BadRequest();
+                if (string.IsNullOrWhiteSpace(productName) || string.IsNullOrWhiteSpace(placeName))
+                {
+                    return BadRequest();
+                }
+
+                if (!LocationHelper.IsValidLocation(latitude, longitude))
+                {
+                    return BadRequest();
+                }
+
+                var place = _places.GetPlace(placeName);
+                if (place == null)
+                {
+                    place = _places.AddPlace(placeName, latitude.Value, longitude.Value);
+                }
+
+                var product = _products.GetProduct(productName);
+                if (product == null)
+                {
+                    product = _products.AddProduct(productName);
+                };
+
+                var post = _posts.Add(product.Id, place.Id);
+
+                place.Posts.ToList().Add(post);
+                product.Posts.ToList().Add(post);
+
+                _places.UpdatePlace(place);
+                _products.UpdateProduct(product);
+
+                return Ok();
             }
-
-            if (!LocationHelper.IsValidLocation(latitude, longitude))
+            catch(Exception e)
             {
-                return BadRequest();
+                // log e
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
-
-            var place = _places.GetPlace(placeName);
-            if (place == null)
-            {
-                place = _places.AddPlace(placeName, latitude.Value, longitude.Value);
-            }
-
-            var product = _products.GetProduct(productName);
-            if (product == null)
-            {
-                product = _products.AddProduct(productName);
-            };
-
-            var post = _posts.Add(product.Id, place.Id);
-
-            place.Posts.ToList().Add(post);
-            product.Posts.ToList().Add(post);
-
-            _places.UpdatePlace(place);
-            _products.UpdateProduct(product);
-
-            return Ok();
         }
     }
 }
