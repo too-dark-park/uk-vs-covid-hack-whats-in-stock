@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using WhatsIn.Models;
 using WhatsIn.Services.Models;
 using WhatsIn.Services;
+using System.IO;
 
 namespace WhatsIn
 {
@@ -26,16 +27,21 @@ namespace WhatsIn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // set up dotenv to grab the env vars
-            DotEnv.Config();
-            services.AddEnv(builder => {
-                builder
-                .AddEnvFile("./.env")
-                .AddThrowOnError(false)
-                .AddEncoding(Encoding.ASCII);
-            });
+            //string path = AppDomain.CurrentDomain.BaseDirectory;
 
-            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+            ////set up dotenv to grab the env vars
+            //DotEnv.Config();
+            //services.AddEnv(builder =>
+            //{
+            //    builder
+            //    .AddEnvFile(path + ".env")
+            //    .AddThrowOnError(false)
+            //    .AddEncoding(Encoding.ASCII);
+            //});
+
+            //var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddControllers();
 
             // add the DB context
@@ -46,6 +52,8 @@ namespace WhatsIn
             services.AddSingleton(Configuration);
 
             services.AddScoped<IPlaces, GooglePlaces>();
+            services.AddScoped<IProducts, Products>();
+            services.AddScoped<IPosts, Posts>();
 
             services.AddMemoryCache();
 
