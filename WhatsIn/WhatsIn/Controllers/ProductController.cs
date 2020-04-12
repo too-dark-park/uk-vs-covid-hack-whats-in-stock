@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using WhatsIn.Helpers;
+using WhatsIn.Models;
 using WhatsIn.Services;
+using WhatsIn.Services.Models;
 
 namespace WhatsIn.Controllers
 {
@@ -63,6 +67,31 @@ namespace WhatsIn.Controllers
                 // log e
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
+        }
+
+        public IActionResult FindProducts(string productName)
+        {
+            IEnumerable<int> productIds = _products.GetWildCardIds(productName);
+            IEnumerable<Post> posts = _posts.GetProductPosts(productIds);
+
+            var results = new List<SearchResult>();
+
+            // FIXME this is inefficient
+            foreach (var post in posts.ToList())
+            {
+                var place = _places.GetPlace(post.PlaceId);
+                var product = _products.GetProduct(post.ProductId);
+
+                results.Add(new SearchResult()
+                {
+                    PlaceName = place.Name,
+                    ProductName = product.Name,
+                    Longitude = place.Longitude,
+                    Latitude = place.Latitude
+                });
+            }
+
+            return Ok(JsonConvert.SerializeObject(results));
         }
     }
 }

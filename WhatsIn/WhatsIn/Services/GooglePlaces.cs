@@ -135,5 +135,15 @@ namespace WhatsIn.Services
             _context.Places.Update(place);
             _context.SaveChanges();
         }
+
+        public Place GetPlace(int productId)
+        {
+            var place = _context.Places.SingleOrDefault(x => x.Id == productId);
+
+            if (place != null)
+                return place;
+
+            return null;
+        }
     }
 }

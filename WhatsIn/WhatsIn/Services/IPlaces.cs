@@ -17,5 +17,7 @@ namespace WhatsIn.Services
         IEnumerable<PlaceDto> MapToDto(string responseFromServer);
 
         void UpdatePlace(Place place);
+
+        Place GetPlace(int productId);
     }
 }
