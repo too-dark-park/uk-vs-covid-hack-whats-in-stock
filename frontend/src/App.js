@@ -3,6 +3,7 @@ import "./App.css";
 import Button from "./Components/Button/Button";
 import logo from "./logo_final.png";
 import Menu from "./Components/Menu/Menu";
+// import { BrowseRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
   _isMounted = false;
@@ -45,38 +46,39 @@ class App extends React.Component {
     return error ? (
       <div>Ooops... something went wrong.</div>
     ) : (
-      <div className="main-container">
-        {data && console.log(this.state.data)}
-        <header className="App-header">
-          <Menu />
-        </header>{" "}
-        {/*Menu component*/}
-        <section>
-          <div className="container">
-            <img src={logo} alt="" />
-            <p className="blurb">
-              No loo roll? <br />
+        <div className="main-container">
+          {data && console.log(this.state.data)}
+          <header className="App-header">
+            <Menu />
+          </header>{" "}
+          {/*Menu component*/}
+          <section>
+            <div className="container">
+              <img src={logo} alt="" />
+              <p className="blurb">
+                No loo roll? <br />
               Long supermarket queue? <br />
               Find it elsewhere.
             </p>
-          </div>
-          <div className="button-container">
-            <Button className="landing-button">submit a product</Button>
-            <Button className="landing-button">find a product</Button>
-          </div>
-        </section>
-        <footer>
-          <a
-            className="App-link"
-            href="https://github.com/too-dark-park/uk-vs-covid-hack-whats-in-stock"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Link to our GitHub
+            </div>
+
+            <div className="button-container">
+              <Button className="landing-button">submit a product</Button>
+              <Button className="landing-button">find a product</Button>
+            </div>
+          </section>
+          <footer>
+            <a
+              className="App-link"
+              href="https://github.com/too-dark-park/uk-vs-covid-hack-whats-in-stock"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Link to our GitHub
           </a>
-        </footer>
-      </div>
-    );
+          </footer>
+        </div>
+      );
   }
 }
 
