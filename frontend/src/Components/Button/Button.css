@@ -5,4 +5,7 @@
 
 .landing-button {
   min-width: 80%;
+  text-align: center;
+  padding: 5%;
+  margin: 5%;
 }

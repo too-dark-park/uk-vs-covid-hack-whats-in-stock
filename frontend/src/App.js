@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import Button from "./Components/Button/Button";
+import logo from "./logo_final.png";
+import Menu from "./Components/Menu/Menu";
 
 class App extends React.Component {
   _isMounted = false;
@@ -43,18 +45,21 @@ class App extends React.Component {
     return error ? (
       <div>Ooops... something went wrong.</div>
     ) : (
-      <div className="App">
+      <div className="main-container">
         {data && console.log(this.state.data)}
         <header className="App-header">
-          <h1>WhatsIN</h1>
-          <h3>Shopping!</h3>
-          <p>
-            Low on toilet paper but the queues outside the shop are too long?
-            Save yourself a trip and find what's in stock before you leave the
-            house.
-          </p>
-        </header>
+          <Menu />
+        </header>{" "}
+        {/*Menu component*/}
         <section>
+          <div className="container">
+            <img src={logo} alt="" />
+            <p className="blurb">
+              No loo roll? <br />
+              Long supermarket queue? <br />
+              Find it elsewhere.
+            </p>
+          </div>
           <div className="button-container">
             <Button className="landing-button">submit a product</Button>
             <Button className="landing-button">find a product</Button>
