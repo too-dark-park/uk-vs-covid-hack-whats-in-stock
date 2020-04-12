@@ -3,7 +3,7 @@ using WhatsIn.Models;
 
 namespace WhatsIn.Services
 {
-    public interface IProducts
+    public interface IProductsService
     {
         Product AddProduct(string productName);
 

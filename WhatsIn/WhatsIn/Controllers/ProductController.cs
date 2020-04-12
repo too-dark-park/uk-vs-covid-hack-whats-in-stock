@@ -15,11 +15,11 @@ namespace WhatsIn.Controllers
     [Route("[controller]/[action]")]
     public class ProductController : ControllerBase
     {
-        private IProducts _products;
+        private IProductsService _products;
         private IPlaces _places;
         private IPosts _posts;
 
-        public ProductController(IProducts products, IPlaces places, IPosts posts)
+        public ProductController(IProductsService products, IPlaces places, IPosts posts)
         {
             _products = products;
             _places = places;

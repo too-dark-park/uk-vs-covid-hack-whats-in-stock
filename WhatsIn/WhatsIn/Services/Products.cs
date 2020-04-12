@@ -6,11 +6,11 @@ using WhatsIn.Models;
 
 namespace WhatsIn.Services
 {
-    public class Products : IProducts
+    public class ProductsService : IProductsService
     {
         private readonly WhatsInContext _context;
 
-        public Products(WhatsInContext context)
+        public ProductsService(WhatsInContext context)
         {
             _context = context;
         }
