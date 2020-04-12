@@ -11,35 +11,39 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      data: this.getJson(),
+      data: null,
       latitude: "",
       longitude: "",
-      error: false,
+      error: null
     };
   }
 
-  async getJson() {
-    const linkJson = `https://whatsin.whiscode.dotnetcloud.co.uk/places/nearby?latitude=${this.state.latitude}&longitude=${this.longitude}`;
-    const fetchJson = await fetch(linkJson, { cache: "no-cache" });
-    const dataJson = await fetchJson.json();
-    if (this._isMounted) {
-      this.setState({ data: dataJson });
+  async getJson = () => {
+    let latitude, longitude;
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        latitude = position.coords.latitude.toFixed(6);
+        longitude = position.coords.longitude.toFixed(6);
+        console.log(latitude, longitude);
+      });
+    } else {
+      this.setState({error: "geoLocation API not available - Bhavik sucks"});
+      return;
     }
+    const linkJson = `https://whatsin.whiscode.dotnetcloud.co.uk/places/nearby?latitude=${latitude}&longitude=${longitude}`;
+    const dataJson = await fetch(linkJson, { cache: "no-cache" }).then(res => {
+      if (!res.ok) {
+        this.setState({error: "unable to fetch data - Bhavik still sucks"});
+      }
+      return res.json();
+    })
+    this.setState({ data: dataJson, longitude, latitude, error: null });
+    // not sure if it is worth storing the coordinates in state, but there it is
     console.log("link", linkJson);
   }
 
   componentDidMount() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        let latitude = position.coords.latitude.toFixed(6);
-        let longitude = position.coords.longitude.toFixed(6);
-        console.log(latitude, longitude);
-      });
-    } else {
-      console.log("Not Available");
-    }
-    this._isMounted = true;
-    this.getJson = this.getJson.bind(this);
+    //FYI, binding is unnecessary if you declare method as arrow functions within the scope of the class
     this.getJson();
   }
 
@@ -54,7 +58,7 @@ class App extends React.Component {
   render() {
     const { data, error } = this.state;
     return error ? (
-      <div>Ooops... something went wrong.</div>
+      <div>Ooops... something went wrong: {error}.</div>
     ) : (
       <div className="main-container">
         {data && console.log(this.state.data)}
