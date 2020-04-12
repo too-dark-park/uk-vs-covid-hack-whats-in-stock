@@ -11,17 +11,12 @@ namespace WhatsIn.Services.Writers
             _context = context;
         }
 
-        public Product AddProductToDb(string productName)
+        public Product AddProductToDb(Product productToAdd)
         {
-            var product = new Product()
-            {
-                Name = productName
-            };
-
-            _context.Products.Add(product);
+            _context.Products.Add(productToAdd);
             _context.SaveChanges();
 
-            return product;
+            return productToAdd;
         }
 
         public void UpdateExistingProductInDb(Product product)

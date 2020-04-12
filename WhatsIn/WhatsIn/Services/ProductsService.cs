@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using WhatsIn.Models;
+using WhatsIn.Services.Readers;
+using WhatsIn.Services.Writers;
 
 namespace WhatsIn.Services
 {
-
-
-
     public class ProductsService : IProductsService
     {
-        private readonly WhatsInContext _context;
+        private readonly IProductsReader _productsReader;
+        private readonly IProductsWriter _productsWriter;
 
-        public ProductsService(WhatsInContext context)
+        public ProductsService(IProductsReader productsReader, IProductsWriter productsWriter)
         {
-            _context = context;
+            _productsReader = productsReader;
+            _productsWriter = productsWriter;
         }
 
         public Product AddProduct(string productName)
@@ -25,10 +26,9 @@ namespace WhatsIn.Services
                 Name = productName
             };
 
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            var productToAdd = _productsWriter.AddProductToDb(product);
 
-            return product;
+            return productToAdd;
         }
 
         public int? GetId(string productName)

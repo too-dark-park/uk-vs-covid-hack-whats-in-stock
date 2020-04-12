@@ -8,7 +8,7 @@ namespace WhatsIn.Services.Writers
 {
     public interface IProductsWriter
     {
-        Product AddProductToDb(string productName);
+        Product AddProductToDb(Product productToAdd);
 
         void UpdateExistingProductInDb(Product product);
     }
