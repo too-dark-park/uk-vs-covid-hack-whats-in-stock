@@ -35,7 +35,7 @@ body {
   overflow: hidden;
 }
 
-.menu {
+.menu-closed {
   /* position: fixed; */
   height: 13vh;
   width: 100vw;
@@ -55,6 +55,16 @@ body {
   background: none;
   border: none;
   outline: none;
+}
+
+.menu-open {
+  height: 50vh;
+  width: 70vw;
+  background: var(--dark-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 2;
 }
 
 footer {

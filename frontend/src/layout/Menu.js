@@ -5,15 +5,15 @@ export default function Menu() {
 
   return (
     <>
-      <nav className='menu'>
+      <nav className='menu-closed'>
         <button className='menu-btn'>
           <img className='menu-icon' src={menu_icon} alt='' />
         </button>
       </nav>
 
-      <main>
+      <main className='menu-open'>
 
-        
+
       </main>
     </>
   );
