@@ -29,5 +29,10 @@ namespace WhatsIn.Services
 
             return post;
         }
+
+        public IEnumerable<Post> GetProductPosts(IEnumerable<int> productIds)
+        {
+            return _context.Posts.Where(x => productIds.Contains(x.ProductId));
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using WhatsIn.Models;
+﻿using System.Collections.Generic;
+using WhatsIn.Models;
 
 namespace WhatsIn.Services
 {
@@ -11,5 +12,9 @@ namespace WhatsIn.Services
         Product GetProduct(string productName);
 
         void UpdateProduct(Product product);
+
+        IEnumerable<int> GetWildCardIds(string productName);
+
+        Product GetProduct(int productId);
     }
 }

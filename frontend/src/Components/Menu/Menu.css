@@ -1,0 +1,44 @@
+.menu-closed {
+  position: fixed;
+  height: 13vh;
+  width: 100vw;
+  background: var(--dark-color);
+  display: flex;
+  align-items: center;
+  top: 0;
+}
+
+.menu-icon {
+  height: 40%;
+  width: 75px;
+  padding-left: 2em;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.menu-open {
+  position: fixed;
+  margin-top: 10vh;
+  height: 100%;
+  width: 100%;
+  background: var(--dark-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 2;
+}
+
+.menu-open a {
+  text-decoration: none;
+  font-size: 20px;
+  color: var(--light-color);
+  margin-left: 20px;
+}
+
+#menu-display-off {
+  display: none;
+}
