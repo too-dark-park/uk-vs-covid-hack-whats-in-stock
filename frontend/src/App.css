@@ -3,6 +3,65 @@
   margin: 12%;
 }
 
+/*Global Styles*/
+:root {
+  --primary-color: #601aec;
+  --dark-color: #333333;
+  --light-color: #f4f4f4;
+  --success-color: orange;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.container {
+  display: flex;
+  max-height: 40vh;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.icon {
+  height: 50%;
+  padding-left: 1em;
+}
+
+.menu {
+  /* position: fixed; */
+  height: 15vh;
+  width: 100vw;
+  background: var(--dark-color);
+  display: flex;
+  align-items: center;
+  top: 0;
+}
+
+footer {
+  height: 10vh;
+  width: 100vw;
+  background: var(--dark-color);
+  align-items: center;
+  bottom: 0;
+}
+
+@media (min-width: 600px) {
+  body {
+    display: flex;
+    background-color: var(--light-color);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .App {
     margin: 15%;
