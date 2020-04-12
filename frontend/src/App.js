@@ -3,7 +3,10 @@ import "./App.css";
 import Button from "./Components/Button/Button";
 import logo from "./logo_final.png";
 import Menu from "./Components/Menu/Menu";
-// import { BrowseRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import FindProduct from './Pages/FindProduct';
+import SubmitProduct from './Pages/SubmitProduct';
+
 
 class App extends React.Component {
   _isMounted = false;
@@ -52,6 +55,14 @@ class App extends React.Component {
             <Menu />
           </header>{" "}
           {/*Menu component*/}
+          {/*Routing*/}
+          <Router>
+            <Switch>
+              <Route exact path='/submit' component={SubmitProduct} />
+              <Route exact path='/find' component={FindProduct} />
+            </Switch>
+          </Router>
+          {/*Home page*/}
           <section>
             <div className="container">
               <img src={logo} alt="" />
@@ -62,10 +73,12 @@ class App extends React.Component {
             </p>
             </div>
 
+
             <div className="button-container">
               <Button className="landing-button">submit a product</Button>
               <Button className="landing-button">find a product</Button>
             </div>
+
           </section>
           <footer>
             <a
