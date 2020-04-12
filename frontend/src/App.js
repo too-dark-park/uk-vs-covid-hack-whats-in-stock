@@ -51,13 +51,12 @@ class App extends React.Component {
     ) : (
         <div className="main-container">
           {data && console.log(this.state.data)}
+          {/*Menu component*/}
           <header className="App-header">
             <Menu />
           </header>{" "}
-          {/*Menu component*/}
-          {/*Home page*/}
+          {/*Routing*/}
           <section>
-            {/*Routing*/}
             <Router>
               <div className="button-container">
                 <Switch>
