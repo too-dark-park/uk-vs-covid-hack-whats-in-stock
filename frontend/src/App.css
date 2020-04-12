@@ -41,6 +41,10 @@ body {
   background: var(--primary-color);
 }
 
+.container {
+  margin-top: 30px;
+}
+
 footer {
   position: absolute;
   bottom: 0;
