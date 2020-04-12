@@ -45,33 +45,33 @@ class App extends React.Component {
     return error ? (
       <div>Ooops... something went wrong.</div>
     ) : (
-      <div className="main-container">
-        {data && console.log(this.state.data)}
-        <header className="App-header">{/* <Menu /> */}</header>
-        <section>
-          <div className="container">
-            <img src={logo} alt="" />
-            <p className="blurb">
-              Low on toilet paper but the queues outside the shop are too long?
-              Save yourself a trip and find what's in stock before you leave the
-              house.
+        <div className="main-container">
+          {data && console.log(this.state.data)}
+          <header className="App-header"><Menu /></header>
+          <section>
+            <div className="container">
+              <img src={logo} alt="" />
+              <p className="blurb">
+                Low on toilet paper but the queues outside the shop are too long?
+                Save yourself a trip and find what's in stock before you leave the
+                house.
             </p>
-          </div>
-          <Button>YES</Button>
-          <Button>NO</Button>
-        </section>
-        <footer>
-          <a
-            className="App-link"
-            href="https://github.com/too-dark-park/uk-vs-covid-hack-whats-in-stock"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Link to our GitHub
+            </div>
+            <Button>YES</Button>
+            <Button>NO</Button>
+          </section>
+          <footer>
+            <a
+              className="App-link"
+              href="https://github.com/too-dark-park/uk-vs-covid-hack-whats-in-stock"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Link to our GitHub
           </a>
-        </footer>
-      </div>
-    );
+          </footer>
+        </div>
+      );
   }
 }
 

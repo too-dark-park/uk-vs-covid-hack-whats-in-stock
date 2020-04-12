@@ -50,14 +50,7 @@ img {
   max-width: 100%;
 }
 
-@media (min-width: 600px) {
-  body {
-    display: flex;
-    background-color: var(--light-color);
-  }
-}
-
-/* @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .App {
     margin: 15%;
   }
@@ -67,4 +60,4 @@ img {
   .App {
     margin: 20%;
   }
-} */
+}

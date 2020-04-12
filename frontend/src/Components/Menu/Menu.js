@@ -14,7 +14,7 @@ export default function Menu() {
   return (
     <>
       <nav className='menu-closed'>
-        <button className='menu-btn' onClick={() => toggleMenu}>
+        <button className='menu-btn' onClick={() => toggleMenu()}>
           <img className='menu-icon' src={hamburger} alt='' />
         </button>
       </nav>

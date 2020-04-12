@@ -22,8 +22,9 @@
 
 .menu-open {
   position: fixed;
-  height: 70vh;
-  width: 70vw;
+  margin-top: 10vh;
+  height: 30vh;
+  width: 50vw;
   background: var(--dark-color);
   display: flex;
   flex-direction: column;
@@ -33,10 +34,9 @@
 
 .menu-open a {
   text-decoration: none;
-  font-size: 30px;
+  font-size: 20px;
   color: var(--light-color);
-  line-height: -1;
-  padding-left: 1em;
+  margin-left: 20px;
 }
 
 #menu-display-off {
