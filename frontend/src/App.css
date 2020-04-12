@@ -73,6 +73,14 @@ body {
   z-index: 2;
 }
 
+.menu-open a {
+  text-decoration: none;
+  font-size: 30px;
+  color: var(--light-color);
+  line-height: -1;
+  padding-left: 1em;
+}
+
 footer {
   height: 10vh;
   width: 100vw;

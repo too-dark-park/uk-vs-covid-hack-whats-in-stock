@@ -12,8 +12,10 @@ export default function Menu() {
       </nav>
 
       <main className='menu-open'>
-
-
+        <h4><a href='/'>Submit a product</a></h4>
+        <h4><a href='/'>Find a product</a></h4>
+        <h4><a href='/'>About</a></h4>
+        <h4><a href='/'>Contact Us</a></h4>
       </main>
     </>
   );
