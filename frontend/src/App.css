@@ -37,7 +37,7 @@ body {
   overflow: hidden;
   display: block;
   position: relative;
-  padding-bottom: 100px; /* height of your footer */
+  padding-bottom: 50px; /* height of your footer */
   background: var(--primary-color);
 }
 

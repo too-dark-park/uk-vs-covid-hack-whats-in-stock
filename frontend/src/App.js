@@ -1,9 +1,12 @@
 import React from "react";
 import "./App.css";
 import Button from "./Components/Button/Button";
-import logo from "./logo_final.png";
+// import logo from "./logo_final.png";
 import Menu from "./Components/Menu/Menu";
-// import { BrowseRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
+import FindProduct from './Pages/FindProduct';
+import SubmitProduct from './Pages/SubmitProduct';
+import HomePage from './Pages/HomePage';
 
 class App extends React.Component {
   _isMounted = false;
@@ -48,24 +51,31 @@ class App extends React.Component {
     ) : (
         <div className="main-container">
           {data && console.log(this.state.data)}
+          {/*Menu component*/}
           <header className="App-header">
             <Menu />
           </header>{" "}
-          {/*Menu component*/}
+          {/*Routing*/}
           <section>
-            <div className="container">
-              <img src={logo} alt="" />
-              <p className="blurb">
-                No loo roll? <br />
-              Long supermarket queue? <br />
-              Find it elsewhere.
-            </p>
-            </div>
+            <Router>
+              <div className="button-container">
+                <Switch>
+                  <Route exact path='/' component={HomePage} />
+                  <Route exact path='/submit' component={SubmitProduct} />
+                  <Route exact path='/find' component={FindProduct} />
+                </Switch>
 
-            <div className="button-container">
-              <Button className="landing-button">submit a product</Button>
-              <Button className="landing-button">find a product</Button>
-            </div>
+                <Link to='/submit'>
+                  <Button className="landing-button">submit a product</Button>
+                </Link>
+                <Link to='/find'>
+                  <Button className="landing-button">find a product</Button>
+                </Link>
+                <Link to='/'>
+                  <Button className="landing-button">go back to the start</Button>
+                </Link>
+              </div>
+            </Router>
           </section>
           <footer>
             <a
