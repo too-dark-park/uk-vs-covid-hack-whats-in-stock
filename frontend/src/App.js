@@ -58,7 +58,7 @@ class App extends React.Component {
   render() {
     const { data, error } = this.state;
     return error ? (
-      <div>Ooops... something went wrong.</div>
+      <div>Ooops... something went wrong: {error}.</div>
     ) : (
       <div className="main-container">
         {data && console.log(this.state.data)}
