@@ -33,7 +33,7 @@ namespace WhatsIn.Services
 
         public int? GetId(string productName)
         {
-            var product = _context.Products.SingleOrDefault(x => x.Name == productName);
+            var product = _productsReader.GetProductFromDbByName(productName);
 
             if (product != null)
                 return product.Id;
@@ -43,7 +43,7 @@ namespace WhatsIn.Services
 
         public Product GetProduct(string productName)
         {
-            var product = _context.Products.SingleOrDefault(x => x.Name == productName);
+            var product = _productsReader.GetProductFromDbByName(productName);
 
             if (product != null)
                 return product;
@@ -53,7 +53,7 @@ namespace WhatsIn.Services
 
         public Product GetProduct(int productId)
         {
-            var product = _context.Products.SingleOrDefault(x => x.Id == productId);
+            var product = _productsReader.GetProductFromDbById(productId);
 
             if (product != null)
                 return product;
@@ -63,19 +63,14 @@ namespace WhatsIn.Services
 
         public IEnumerable<int> GetWildCardIds(string productName)
         {
-            var wildcard = Regex.Replace(productName, @"\s+", "%");
+            var wildCardIds = _productsReader.GetWildCardIdsFromDb(productName);
 
-            var t = from x in _context.Products
-                    where EF.Functions.Like(x.Name, $"%{wildcard}%")
-                    select x.Id;
-
-            return t.AsEnumerable();
+            return wildCardIds;
         }
 
         public void UpdateProduct(Product product)
         {
-            _context.Products.Update(product);
-            _context.SaveChanges();
+            _productsWriter.UpdateExistingProductInDb(product);
         }
     }
 }

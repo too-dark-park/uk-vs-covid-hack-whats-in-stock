@@ -30,10 +30,7 @@ namespace WhatsIn.Services.Readers
         {
             var product = _context.Products.SingleOrDefault(x => x.Name == productName);
 
-            if (product != null)
-                return product;
-
-            return null;
+            return product;
         }
 
         public Product GetProductFromDbById(int productId)
