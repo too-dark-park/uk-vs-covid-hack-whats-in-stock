@@ -12,6 +12,8 @@ using WhatsIn.Models;
 using WhatsIn.Services.Models;
 using WhatsIn.Services;
 using System.IO;
+using WhatsIn.Services.Readers;
+using WhatsIn.Services.Writers;
 
 namespace WhatsIn
 {
@@ -52,7 +54,9 @@ namespace WhatsIn
             services.AddSingleton(Configuration);
 
             services.AddScoped<IPlaces, GooglePlaces>();
-            services.AddScoped<IProducts, Products>();
+            services.AddScoped<IProductsReader, ProductsReader>();
+            services.AddScoped<IProductsWriter, ProductsWriter>();
+            services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<IPosts, Posts>();
 
             services.AddMemoryCache();
