@@ -12,20 +12,32 @@ class App extends React.Component {
 
     this.state = {
       data: this.getJson(),
+      latitude: "",
+      longitude: "",
       error: false,
     };
   }
 
   async getJson() {
-    const linkJson = "https://whatsin.whiscode.dotnetcloud.co.uk/places/nearby";
+    const linkJson = `https://whatsin.whiscode.dotnetcloud.co.uk/places/nearby?latitude=${this.state.latitude}&longitude=${this.longitude}`;
     const fetchJson = await fetch(linkJson, { cache: "no-cache" });
     const dataJson = await fetchJson.json();
     if (this._isMounted) {
       this.setState({ data: dataJson });
     }
+    console.log("link", linkJson);
   }
 
   componentDidMount() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        let latitude = position.coords.latitude.toFixed(6);
+        let longitude = position.coords.longitude.toFixed(6);
+        console.log(latitude, longitude);
+      });
+    } else {
+      console.log("Not Available");
+    }
     this._isMounted = true;
     this.getJson = this.getJson.bind(this);
     this.getJson();
