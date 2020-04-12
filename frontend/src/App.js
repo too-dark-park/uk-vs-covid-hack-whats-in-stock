@@ -1,8 +1,11 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import "./App.css";
 import Button from "./Components/Button/Button";
 import logo from "./logo_final.png";
 import Menu from "./Components/Menu/Menu";
+
+
 
 class App extends React.Component {
   _isMounted = false;
@@ -59,12 +62,10 @@ class App extends React.Component {
                 house.
             </p>
             </div>
-
             <Button>SUBMIT A PRODUCT</Button>
             <Button>FIND A PRODUCT</Button>
-
           </section>
-          
+
           <footer>
             <a
               className="App-link"
