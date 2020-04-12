@@ -8,6 +8,11 @@
   --success-color: #d9d9d9;
 }
 
+.App {
+  background: var(--primary-color);
+  height: 100vh;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -36,7 +41,7 @@ body {
 }
 
 .menu-closed {
-  /* position: fixed; */
+  position: fixed;
   height: 13vh;
   width: 100vw;
   background: var(--dark-color);
@@ -58,7 +63,8 @@ body {
 }
 
 .menu-open {
-  height: 50vh;
+  position: fixed;
+  height: 70vh;
   width: 70vw;
   background: var(--dark-color);
   display: flex;
