@@ -6,8 +6,15 @@ export default function Menu() {
   return (
     <>
       <nav className='menu'>
-        <img className='icon' src={menu_icon} alt='' />
+        <button className='menu-btn'>
+          <img className='menu-icon' src={menu_icon} alt='' />
+        </button>
       </nav>
+
+      <main>
+
+        
+      </main>
     </>
   );
 

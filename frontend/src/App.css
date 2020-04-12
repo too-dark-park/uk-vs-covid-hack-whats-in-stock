@@ -35,19 +35,26 @@ body {
   overflow: hidden;
 }
 
-.icon {
-  height: 50%;
-  padding-left: 1em;
-}
-
 .menu {
   /* position: fixed; */
-  height: 15vh;
+  height: 13vh;
   width: 100vw;
   background: var(--dark-color);
   display: flex;
   align-items: center;
   top: 0;
+}
+
+.menu-icon {
+  height: 40%;
+  width: 75px;
+  padding-left: 2em;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  outline: none;
 }
 
 footer {

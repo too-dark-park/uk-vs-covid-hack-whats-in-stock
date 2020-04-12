@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Button from "./Components/Button/Button";
-import logo from "./layout/logo_7.png";
+import logo from "./layout/logo_final.png";
 import Menu from "./layout/Menu";
 
 class App extends React.Component {
