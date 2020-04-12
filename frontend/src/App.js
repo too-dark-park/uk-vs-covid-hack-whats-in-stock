@@ -3,7 +3,7 @@ import "./App.css";
 import Button from "./Components/Button/Button";
 import logo from "./logo_final.png";
 import Menu from "./Components/Menu/Menu";
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import FindProduct from './Pages/FindProduct';
 import SubmitProduct from './Pages/SubmitProduct';
 
@@ -55,13 +55,6 @@ class App extends React.Component {
             <Menu />
           </header>{" "}
           {/*Menu component*/}
-          {/*Routing*/}
-          <Router>
-            <Switch>
-              <Route exact path='/submit' component={SubmitProduct} />
-              <Route exact path='/find' component={FindProduct} />
-            </Switch>
-          </Router>
           {/*Home page*/}
           <section>
             <div className="container">
@@ -73,11 +66,23 @@ class App extends React.Component {
             </p>
             </div>
 
+            {/*Routing*/}
+            <Router>
+              <div className="button-container">
+                <Switch>
+                  <Route exact path='/submit' component={SubmitProduct} />
+                  <Route exact path='/find' component={FindProduct} />
+                </Switch>
 
-            <div className="button-container">
-              <Button className="landing-button">submit a product</Button>
-              <Button className="landing-button">find a product</Button>
-            </div>
+                <Link to='/submit'>
+                  <Button className="landing-button">submit a product</Button>
+                </Link>
+                <Link to='find'>
+                  <Button className="landing-button">find a product</Button>
+                </Link>
+
+              </div>
+            </Router>
 
           </section>
           <footer>
