@@ -1,16 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using WhatsIn.Models;
 
-namespace WhatsIn.Services
+namespace WhatsIn.Services.Readers
 {
-    public class ProductsService : IProductsService
+    public interface IProductsReader
     {
+        int? GetProductIdFromDb(string productName);
+
+        Product GetProductFromDbByName(string productName);
+
+        IEnumerable<int> GetWildCardIdsFromDb(string productName);
+
+        Product GetProductFromDbById(int productId);
+    }
+
+    public class ProductsReader : IProductsReader
+    {
+
         private readonly WhatsInContext _context;
 
-        public ProductsService(WhatsInContext context)
+        public ProductsReader(WhatsInContext context)
         {
             _context = context;
         }
@@ -74,5 +86,6 @@ namespace WhatsIn.Services
             _context.Products.Update(product);
             _context.SaveChanges();
         }
+
     }
 }
