@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WhatsIn.Models
 {
@@ -16,8 +14,6 @@ namespace WhatsIn.Models
 
         public string Name { get; set; }
 
-        public int Quantity { get; set; }
-
-        public Location ProductLocation { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
     }
 }

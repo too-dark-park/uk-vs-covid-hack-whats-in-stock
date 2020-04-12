@@ -5,13 +5,12 @@ using dotenv.net.DependencyInjection.Microsoft;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using WhatsIn.Models;
+using WhatsIn.Services.Models;
+using WhatsIn.Services;
 
 namespace WhatsIn
 {
@@ -42,7 +41,13 @@ namespace WhatsIn
             // add the DB context
             services.AddDbContext<WhatsInContext>(options => options.UseSqlServer(connectionString));
 
+            services.Configure<MapApiSettings>(Configuration);
+
             services.AddSingleton(Configuration);
+
+            services.AddScoped<IPlaces, GooglePlaces>();
+
+            services.AddMemoryCache();
 
             // add any new services to the collection here
         }

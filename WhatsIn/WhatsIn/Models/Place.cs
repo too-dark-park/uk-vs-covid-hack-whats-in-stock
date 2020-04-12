@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhatsIn.Models
 {
-    public class Location
+    public class Place
     {
         [Required]
         [Key]
@@ -13,13 +13,10 @@ namespace WhatsIn.Models
 
         public string Name { get; set; }
 
-        // e.g supermarket, café, shop
-        public string Type { get; set; }
-
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
 
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
     }
 }
