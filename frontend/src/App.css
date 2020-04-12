@@ -50,47 +50,6 @@ img {
   max-width: 100%;
 }
 
-.menu-closed {
-  position: fixed;
-  height: 13vh;
-  width: 100vw;
-  background: var(--dark-color);
-  display: flex;
-  align-items: center;
-  top: 0;
-}
-
-.menu-icon {
-  height: 40%;
-  width: 75px;
-  padding-left: 2em;
-}
-
-.menu-btn {
-  background: none;
-  border: none;
-  outline: none;
-}
-
-.menu-open {
-  position: fixed;
-  height: 70vh;
-  width: 70vw;
-  background: var(--dark-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  z-index: 2;
-}
-
-.menu-open a {
-  text-decoration: none;
-  font-size: 30px;
-  color: var(--light-color);
-  line-height: -1;
-  padding-left: 1em;
-}
-
 @media (min-width: 600px) {
   body {
     display: flex;
