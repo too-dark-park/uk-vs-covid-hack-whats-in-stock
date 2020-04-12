@@ -55,8 +55,10 @@ class App extends React.Component {
           </p>
         </header>
         <section>
-          <Button>YES</Button>
-          <Button>NO</Button>
+          <div className="button-container">
+            <Button className="landing-button">submit a product</Button>
+            <Button className="landing-button">find a product</Button>
+          </div>
         </section>
         <footer>
           <a

@@ -1,0 +1,8 @@
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-button {
+  min-width: 80%;
+}
