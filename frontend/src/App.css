@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 
 /*Global Styles*/
 :root {
@@ -8,17 +8,41 @@
   --success-color: #d9d9d9;
 }
 
-.App {
-  background: var(--primary-color);
-  height: 100vh;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   text-align: left;
-  font-family: 'Fredoka One', cursive;
+  font-family: "Fredoka One", cursive;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  position: relative;
+  color: var(--light-color);
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: var(--primary-color);
+}
+
+.main-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
+  background: var(--primary-color);
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 img {
@@ -26,19 +50,7 @@ img {
   max-width: 100%;
 }
 
-body {
-  font-size: 1rem;
-  line-height: 1.6;
-  background-color: var(--primary-color);
-  color: var(--light-color);
-}
-
-.container {
-  max-height: 200px;
-  max-width: 100%;
-  object-fit: contain;
-  overflow: hidden;
-}
+/* 
 
 .menu-closed {
   position: fixed;
@@ -81,20 +93,12 @@ body {
   padding-left: 1em;
 }
 
-footer {
-  height: 10vh;
-  width: 100vw;
-  background: var(--success-color);
-  align-items: center;
-  bottom: 0;
-}
-
 @media (min-width: 600px) {
   body {
     display: flex;
     background-color: var(--light-color);
   }
-}
+} */
 
 /* @media screen and (min-width: 768px) {
   .App {
