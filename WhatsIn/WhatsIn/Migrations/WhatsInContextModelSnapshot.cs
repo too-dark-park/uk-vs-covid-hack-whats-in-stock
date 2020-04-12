@@ -83,27 +83,6 @@ namespace WhatsIn.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WhatsIn.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateSignedUp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("WhatsIn.Models.Post", b =>
                 {
                     b.HasOne("WhatsIn.Models.Place", "Place")

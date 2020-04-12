@@ -10,8 +10,8 @@ using WhatsIn.Models;
 namespace WhatsIn.Migrations
 {
     [DbContext(typeof(WhatsInContext))]
-    [Migration("20200411152440_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200412004014_InitialAdd")]
+    partial class InitialAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace WhatsIn.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WhatsIn.Models.Location", b =>
+            modelBuilder.Entity("WhatsIn.Models.Place", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,12 +37,37 @@ namespace WhatsIn.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
+                    b.HasKey("Id");
+
+                    b.ToTable("Places");
+                });
+
+            modelBuilder.Entity("WhatsIn.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageFileName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PostedUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.HasIndex("PlaceId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("WhatsIn.Models.Product", b =>
@@ -55,45 +80,24 @@ namespace WhatsIn.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductLocationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductLocationId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WhatsIn.Models.User", b =>
+            modelBuilder.Entity("WhatsIn.Models.Post", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasOne("WhatsIn.Models.Place", "Place")
+                        .WithMany("Posts")
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("DateSignedUp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("WhatsIn.Models.Product", b =>
-                {
-                    b.HasOne("WhatsIn.Models.Location", "ProductLocation")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductLocationId");
+                    b.HasOne("WhatsIn.Models.Product", "Product")
+                        .WithMany("Posts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
