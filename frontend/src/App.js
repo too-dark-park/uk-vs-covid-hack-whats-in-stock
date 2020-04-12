@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Button from "./Components/Button/Button";
+import logo from "./layout/logo_7.png";
 import Menu from "./layout/Menu";
 
 class App extends React.Component {
@@ -48,11 +49,14 @@ class App extends React.Component {
           {data && console.log(this.state.data)}
           <header className="App-header">
             <Menu />
+            <div className="container">
+              <img src={logo} alt="" />
+            </div>
             <p>
               Low on toilet paper but the queues outside the shop are too long?
               Save yourself a trip and find what's in stock before you leave the
               house.
-          </p>
+              </p>
           </header>
           <section>
             <Button>YES</Button>
@@ -68,7 +72,7 @@ class App extends React.Component {
               Link to our GitHub
           </a>
           </footer>
-        </div>
+        </div >
       );
   }
 }

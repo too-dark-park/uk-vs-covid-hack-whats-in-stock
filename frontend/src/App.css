@@ -1,20 +1,24 @@
-.App {
-  text-align: left;
-  margin: 12%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 /*Global Styles*/
 :root {
   --primary-color: #601aec;
   --dark-color: #333333;
   --light-color: #f4f4f4;
-  --success-color: orange;
+  --success-color: #d9d9d9;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  text-align: left;
+  font-family: 'Fredoka One', cursive;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -25,10 +29,9 @@ body {
 }
 
 .container {
-  display: flex;
-  max-height: 40vh;
-  width: 100%;
-  object-fit: cover;
+  max-height: 200px;
+  max-width: 100%;
+  object-fit: contain;
   overflow: hidden;
 }
 
@@ -50,7 +53,7 @@ body {
 footer {
   height: 10vh;
   width: 100vw;
-  background: var(--dark-color);
+  background: var(--success-color);
   align-items: center;
   bottom: 0;
 }
@@ -62,7 +65,7 @@ footer {
   }
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .App {
     margin: 15%;
   }
@@ -72,4 +75,4 @@ footer {
   .App {
     margin: 20%;
   }
-}
+} */
