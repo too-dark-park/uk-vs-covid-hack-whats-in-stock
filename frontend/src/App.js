@@ -15,8 +15,7 @@ class App extends React.Component {
   }
 
   async getJson() {
-    const linkJson =
-      "https://whatsin.whiscode.dotnetcloud.co.uk/WeatherForecast";
+    const linkJson = "https://whatsin.whiscode.dotnetcloud.co.uk/places/nearby";
     const fetchJson = await fetch(linkJson, { cache: "no-cache" });
     const dataJson = await fetchJson.json();
     if (this._isMounted) {
