@@ -5,17 +5,11 @@ import logo from "./logo_final.png";
 import Menu from "./Components/Menu/Menu";
 
 class App extends React.Component {
-  _isMounted = false;
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: null,
-      latitude: "",
-      longitude: "",
-      error: null
-    };
+  this.state = {
+    data: null,
+    latitude: "",
+    longitude: "",
+    error: null
   }
 
   async getJson = () => {
@@ -37,6 +31,9 @@ class App extends React.Component {
       }
       return res.json();
     })
+    .catch(error => {
+      this.setState({ data: null, longitude, latitude, error: `${error} - Bhavik ubersucks` });
+    });
     this.setState({ data: dataJson, longitude, latitude, error: null });
     // not sure if it is worth storing the coordinates in state, but there it is
     console.log("link", linkJson);
@@ -48,11 +45,7 @@ class App extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    this.setState({ error: true });
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
+    this.setState({ error });
   }
 
   render() {
