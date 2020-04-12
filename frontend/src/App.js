@@ -47,7 +47,9 @@ class App extends React.Component {
     ) : (
         <div className="main-container">
           {data && console.log(this.state.data)}
-          <header className="App-header"><Menu /></header>
+
+          <header className="App-header"><Menu /></header> {/*Menu component*/}
+
           <section>
             <div className="container">
               <img src={logo} alt="" />
@@ -57,9 +59,12 @@ class App extends React.Component {
                 house.
             </p>
             </div>
-            <Button>YES</Button>
-            <Button>NO</Button>
+
+            <Button>SUBMIT A PRODUCT</Button>
+            <Button>FIND A PRODUCT</Button>
+
           </section>
+          
           <footer>
             <a
               className="App-link"
