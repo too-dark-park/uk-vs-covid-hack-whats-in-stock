@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 import Button from "./Components/Button/Button";
-import logo from "./layout/logo_final.png";
-import Menu from "./layout/Menu";
+import logo from "./logo_final.png";
+import Menu from "./Components/Menu/Menu";
 
 class App extends React.Component {
   _isMounted = false;
