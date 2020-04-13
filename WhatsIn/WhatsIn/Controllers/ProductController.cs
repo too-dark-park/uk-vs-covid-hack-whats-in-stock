@@ -26,12 +26,12 @@ namespace WhatsIn.Controllers
     [Route("[controller]/[action]")]
     public class ProductController : ControllerBase
     {
-        private IProducts _products;
+        private IProductsService _products;
         private IPlaces _places;
         private IPosts _posts;
         private readonly IWebHostEnvironment _environment;
 
-        public ProductController(IProducts products, IPlaces places, IPosts posts, IWebHostEnvironment environment)
+        public ProductController(IProductsService products, IPlaces places, IPosts posts, IWebHostEnvironment environment)
         {
             _products = products;
             _places = places;

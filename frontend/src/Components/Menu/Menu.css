@@ -1,4 +1,4 @@
- .menu-closed {
+.menu-closed {
   position: fixed;
   height: 13vh;
   width: 100vw;
@@ -23,8 +23,8 @@
 .menu-open {
   position: fixed;
   margin-top: 10vh;
-  height: 30vh;
-  width: 50vw;
+  height: 100%;
+  width: 100%;
   background: var(--dark-color);
   display: flex;
   flex-direction: column;
