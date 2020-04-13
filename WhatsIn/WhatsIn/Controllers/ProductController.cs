@@ -43,7 +43,15 @@ namespace WhatsIn.Controllers
         /// Route: <c>/Product/UploadImage</c>
         /// </summary>
         /// <param name="fileToUpload"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// JSON
+        ///
+        /// <example>
+        /// <code>
+        /// {"FileName":"637223858708524907.jpg","Latitude":51.49886388888889,"Longitude":-2.5948444444444445}
+        /// </code>
+        /// </example>
+        /// </returns>
         [HttpPost]
         [EnableCors("WhatsInPolicy")]
         public IActionResult UploadImage(IFormFile fileToUpload)
@@ -107,7 +115,8 @@ namespace WhatsIn.Controllers
         /// <param name="placeName"></param>
         /// <param name="placeLatitude"></param>
         /// <param name="placeLongitude"></param>
-        /// <returns></returns>
+        /// <param name="fileName"></param>
+        /// <returns>Status code</returns>
         public IActionResult Add(string productName, string placeName, double? placeLatitude, double? placeLongitude, string fileName)
         {
             try
@@ -157,7 +166,18 @@ namespace WhatsIn.Controllers
         /// Route: <c>/Product/FindProducts</c>
         /// </summary>
         /// <param name="productName"></param>
-        /// <returns>JSON of collection of products</returns>
+        /// <returns>
+        /// JSON collection of places with matching products
+        ///
+        /// <example>
+        /// <code>
+        /// ?productName=bread
+        ///
+        /// [{"PlaceName":"The Food Shop","ProductName":"bread","Latitude":51.458068,"Longitude":-2.591259,"ImageHref":""},
+        /// {"PlaceName":"The Other Food Shop","ProductName":"loaf of bread","Latitude":51.458068,"Longitude":-2.591259,"ImageHref":"637223858708524907.jpg"}]
+        /// </code>
+        /// </example>
+        /// </returns>
         public IActionResult FindProducts(string productName)
         {
             IEnumerable<int> productIds = _products.GetWildCardIds(productName);
@@ -170,7 +190,12 @@ namespace WhatsIn.Controllers
             {
                 var place = _places.GetPlace(post.PlaceId);
                 var product = _products.GetProduct(post.ProductId);
-                var imageHref = $"{Request.Scheme}://{Request.Host}/ImageUploads/{post.ImageFileName}";
+
+                var imageHref = "";
+                if (!string.IsNullOrWhiteSpace(post.ImageFileName))
+                {
+                    imageHref = $"{Request.Scheme}://{Request.Host}/ImageUploads/{post.ImageFileName}";
+                }
 
                 results.Add(new SearchResult()
                 {

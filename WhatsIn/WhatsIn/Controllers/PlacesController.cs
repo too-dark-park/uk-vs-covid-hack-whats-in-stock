@@ -22,7 +22,17 @@ namespace WhatsIn.Controllers
         /// </summary>
         /// <param name="latitude"></param>
         /// <param name="longitude"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// JSON collection of places within a certain radius (nearby)
+        /// Google maps limits this to 20
+        ///
+        /// <example>
+        /// <code>
+        ///
+        /// [{"Name":"Marks & Spencer BRISTOL BROADMEAD","Latitude":51.45808539999999,"Longitude":-2.590739},{"Name":"Taste of Napoli","Latitude":51.45815009999999,"Longitude":-2.5907088}]
+        /// </code>
+        /// </example>
+        /// </returns>
         public IActionResult Nearby(double? latitude, double? longitude)
         {
             if (!LocationHelper.IsValidLocation(latitude, longitude))
