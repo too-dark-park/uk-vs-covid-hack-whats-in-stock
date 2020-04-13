@@ -36,6 +36,14 @@ namespace WhatsIn.Controllers
             _environment = environment;
         }
 
+
+        /// <summary>
+        /// <c>UploadImage</c> extracts GPS coordinates from uploaded image.
+        /// If successful, it stores the image and returns the coordinates and unique filename
+        /// Route: <c>/Product/UploadImage</c>
+        /// </summary>
+        /// <param name="fileToUpload"></param>
+        /// <returns></returns>
         [HttpPost]
         [EnableCors("WhatsInPolicy")]
         public IActionResult UploadImage(IFormFile fileToUpload)
@@ -90,6 +98,16 @@ namespace WhatsIn.Controllers
             }
         }
 
+
+        /// <summary>
+        /// <c>Add</c> Adds a product and place to the database
+        /// Route: <c>/Product/Add</c>
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <param name="placeName"></param>
+        /// <param name="placeLatitude"></param>
+        /// <param name="placeLongitude"></param>
+        /// <returns></returns>
         public IActionResult Add(string productName, string placeName, double? placeLatitude, double? placeLongitude)
         {
             try
@@ -133,6 +151,13 @@ namespace WhatsIn.Controllers
             }
         }
 
+
+        /// <summary>
+        /// <c>FindProducts</c> performs a wildcard search on product names
+        /// Route: <c>/Product/FindProducts</c>
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>JSON of collection of products</returns>
         public IActionResult FindProducts(string productName)
         {
             IEnumerable<int> productIds = _products.GetWildCardIds(productName);
