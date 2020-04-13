@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WhatsIn.Models;
@@ -15,13 +16,19 @@ namespace WhatsIn.Services
             _context = context;
         }
 
-        public Post Add(int productId, int placeId)
+        public Post Add(int productId, int placeId, string fileName = null)
         {
+            if (!File.Exists(fileName))
+            {
+                fileName = null;
+            }
+
             var post = new Post()
             {
                 PostedUtc = DateTime.UtcNow,
                 ProductId = productId,
-                PlaceId = placeId
+                PlaceId = placeId,
+                ImageFileName = fileName
             };
 
             _context.Posts.Add(post);

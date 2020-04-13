@@ -16,6 +16,13 @@ namespace WhatsIn.Controllers
             _places = places;
         }
 
+        /// <summary>
+        /// <c>Nearby</c> returns a collection of places near the provided coordinates
+        /// Route: <c>/Places/AddNearby</c>
+        /// </summary>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <returns></returns>
         public IActionResult Nearby(double? latitude, double? longitude)
         {
             if (!LocationHelper.IsValidLocation(latitude, longitude))

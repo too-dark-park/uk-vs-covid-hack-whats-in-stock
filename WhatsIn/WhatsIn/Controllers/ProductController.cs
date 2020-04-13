@@ -108,7 +108,7 @@ namespace WhatsIn.Controllers
         /// <param name="placeLatitude"></param>
         /// <param name="placeLongitude"></param>
         /// <returns></returns>
-        public IActionResult Add(string productName, string placeName, double? placeLatitude, double? placeLongitude)
+        public IActionResult Add(string productName, string placeName, double? placeLatitude, double? placeLongitude, string fileName)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace WhatsIn.Controllers
                     product = _products.AddProduct(productName);
                 };
 
-                var post = _posts.Add(product.Id, place.Id);
+                var post = _posts.Add(product.Id, place.Id, fileName);
 
                 place.Posts.ToList().Add(post);
                 product.Posts.ToList().Add(post);
@@ -170,13 +170,15 @@ namespace WhatsIn.Controllers
             {
                 var place = _places.GetPlace(post.PlaceId);
                 var product = _products.GetProduct(post.ProductId);
+                var imageHref = $"{Request.Scheme}://{Request.Host}/ImageUploads/{post.ImageFileName}";
 
                 results.Add(new SearchResult()
                 {
                     PlaceName = place.Name,
                     ProductName = product.Name,
                     Longitude = place.Longitude,
-                    Latitude = place.Latitude
+                    Latitude = place.Latitude,
+                    ImageHref = imageHref
                 });
             }
 
