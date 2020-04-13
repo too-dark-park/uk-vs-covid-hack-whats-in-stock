@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using WhatsIn.Helpers;
 using WhatsIn.Models;
 using WhatsIn.Services;
@@ -38,14 +39,37 @@ namespace WhatsIn.Controllers
 
         [HttpPost]
         [EnableCors("WhatsInPolicy")]
-        public IActionResult Post(IFormFile fileToUpload)
+        public IActionResult UploadImage(IFormFile fileToUpload)
         {
             if (fileToUpload == null)
-                return BadRequest();
+                return BadRequest("No image");
 
             try
             {
-                var uploads = Path.Combine(_environment.ContentRootPath, "ImageUploads");
+                var gps = ImageMetadataReader.ReadMetadata(fileToUpload.OpenReadStream())
+                                 .OfType<GpsDirectory>()
+                                 .FirstOrDefault();
+
+                if (gps == null)
+                {
+                    return new StatusCodeResult(StatusCodes.Status422UnprocessableEntity);
+                }
+
+                var imageId = DateTime.Now.Ticks;
+                var ext = Path.GetExtension(fileToUpload.FileName);
+                var fileName = imageId + ext;
+
+                GeoLocation location = gps.GetGeoLocation();
+
+                var uploadPath = Path.Combine(_environment.ContentRootPath, "ImageUploads");
+                var filePath = Path.Combine(uploadPath, fileName);
+
+                var imageResult = new ImageResult()
+                {
+                    FileName = fileName,
+                    Latitude = location.Latitude,
+                    Longitude = location.Longitude
+                };
 
                 using (var inStream = fileToUpload.OpenReadStream())
                 using (var image = Image.Load(inStream, out IImageFormat format))
@@ -53,34 +77,15 @@ namespace WhatsIn.Controllers
                     image.Mutate(
                         i => i.Resize(200, 200));
 
-                    image.Save(Path.Combine(uploads, fileToUpload.FileName));
+                    image.Save(filePath);
                 }
-
-                var gps = ImageMetadataReader.ReadMetadata(Path.Combine(uploads, fileToUpload.FileName))
-                                 .OfType<GpsDirectory>()
-                                 .FirstOrDefault();
-
-                if (gps == null)
-                {
-                    System.IO.File.Delete(Path.Combine(uploads, fileToUpload.FileName));
-                    return new StatusCodeResult(StatusCodes.Status422UnprocessableEntity);
-                }
-
-                GeoLocation location = gps.GetGeoLocation();
-
-                var imageResult = new ImageResult()
-                {
-                    FilePath = Path.Combine(uploads, fileToUpload.FileName),
-                    Latitude = location.Latitude,
-                    Longitude = location.Longitude
-                };
 
                 return Ok(JsonConvert.SerializeObject(imageResult));
             }
             catch (Exception e)
             {
                 // log e
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

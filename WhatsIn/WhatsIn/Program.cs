@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace WhatsIn
 {
@@ -13,6 +8,11 @@ namespace WhatsIn
     {
         public static void Main(string[] args)
         {
+            if (!Directory.Exists("ImageUploads"))
+            {
+                Directory.CreateDirectory("ImageUploads");
+            }
+
             CreateHostBuilder(args).Build().Run();
         }
 

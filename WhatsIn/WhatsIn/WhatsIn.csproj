@@ -23,7 +23,10 @@
 
   <ItemGroup>
     <Folder Include="ImageUploads\" />
-  </ItemGroup>
+  </ItemGroup>   
 
+	<Target Name="CreateImageUploadsFolder" AfterTargets="AfterPublish">
+	  <MakeDir Directories="$(PublishDir)ImageUploads" Condition="!Exists('$(PublishDir)ImageUploads')" /> 
+	</Target>
 
 </Project>
