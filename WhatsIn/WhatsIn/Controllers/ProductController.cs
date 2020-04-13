@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using WhatsIn.Helpers;
 using WhatsIn.Models;
 using WhatsIn.Services;
@@ -71,6 +70,8 @@ namespace WhatsIn.Controllers
                     Longitude = location.Longitude
                 };
 
+                // FIXME we have a scenario here where images can get abandoned if an Add request isn't made
+                // Wanted to avoid uploading an image more than once
                 using (var inStream = fileToUpload.OpenReadStream())
                 using (var image = Image.Load(inStream, out IImageFormat format))
                 {
@@ -89,7 +90,7 @@ namespace WhatsIn.Controllers
             }
         }
 
-        public IActionResult Add(string productName, string placeName, double? latitude, double? longitude)
+        public IActionResult Add(string productName, string placeName, double? placeLatitude, double? placeLongitude)
         {
             try
             {
@@ -98,7 +99,7 @@ namespace WhatsIn.Controllers
                     return BadRequest();
                 }
 
-                if (!LocationHelper.IsValidLocation(latitude, longitude))
+                if (!LocationHelper.IsValidLocation(placeLatitude, placeLongitude))
                 {
                     return BadRequest();
                 }
@@ -106,7 +107,7 @@ namespace WhatsIn.Controllers
                 var place = _places.GetPlace(placeName);
                 if (place == null)
                 {
-                    place = _places.AddPlace(placeName, latitude.Value, longitude.Value);
+                    place = _places.AddPlace(placeName, placeLatitude.Value, placeLongitude.Value);
                 }
 
                 var product = _products.GetProduct(productName);
