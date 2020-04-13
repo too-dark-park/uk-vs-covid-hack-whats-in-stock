@@ -11,5 +11,6 @@ namespace WhatsIn.Services.Models
         public string ProductName { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public string ImageHref { get; set; }
     }
 }

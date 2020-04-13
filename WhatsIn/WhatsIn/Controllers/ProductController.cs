@@ -36,55 +36,88 @@ namespace WhatsIn.Controllers
             _environment = environment;
         }
 
+
+        /// <summary>
+        /// <c>UploadImage</c> extracts GPS coordinates from uploaded image.
+        /// If successful, it stores the image and returns the coordinates and unique filename
+        /// Route: <c>/Product/UploadImage</c>
+        /// </summary>
+        /// <param name="fileToUpload"></param>
+        /// <returns>
+        /// JSON
+        ///
+        /// <example>
+        /// <code>
+        /// {"FileName":"637223858708524907.jpg","Latitude":51.49886388888889,"Longitude":-2.5948444444444445}
+        /// </code>
+        /// </example>
+        /// </returns>
         [HttpPost]
         [EnableCors("WhatsInPolicy")]
-        public IActionResult Post(IFormFile fileToUpload)
+        public IActionResult UploadImage(IFormFile fileToUpload)
         {
             if (fileToUpload == null)
-                return BadRequest();
+                return BadRequest("No image");
 
             try
             {
-                var uploads = Path.Combine(_environment.ContentRootPath, "ImageUploads");
+                var gps = ImageMetadataReader.ReadMetadata(fileToUpload.OpenReadStream())
+                                 .OfType<GpsDirectory>()
+                                 .FirstOrDefault();
 
+                if (gps == null)
+                {
+                    return new StatusCodeResult(StatusCodes.Status422UnprocessableEntity);
+                }
+
+                var imageId = DateTime.Now.Ticks;
+                var ext = Path.GetExtension(fileToUpload.FileName);
+                var fileName = imageId + ext;
+
+                GeoLocation location = gps.GetGeoLocation();
+
+                var uploadPath = Path.Combine(_environment.ContentRootPath, "ImageUploads");
+                var filePath = Path.Combine(uploadPath, fileName);
+
+                var imageResult = new ImageResult()
+                {
+                    FileName = fileName,
+                    Latitude = location.Latitude,
+                    Longitude = location.Longitude
+                };
+
+                // FIXME we have a scenario here where images can get abandoned if an Add request isn't made
+                // Wanted to avoid uploading an image more than once
                 using (var inStream = fileToUpload.OpenReadStream())
                 using (var image = Image.Load(inStream, out IImageFormat format))
                 {
                     image.Mutate(
                         i => i.Resize(200, 200));
 
-                    image.Save(Path.Combine(uploads, fileToUpload.FileName));
+                    image.Save(filePath);
                 }
-
-                var gps = ImageMetadataReader.ReadMetadata(Path.Combine(uploads, fileToUpload.FileName))
-                                 .OfType<GpsDirectory>()
-                                 .FirstOrDefault();
-
-                if (gps == null)
-                {
-                    System.IO.File.Delete(Path.Combine(uploads, fileToUpload.FileName));
-                    return new StatusCodeResult(StatusCodes.Status422UnprocessableEntity);
-                }
-
-                GeoLocation location = gps.GetGeoLocation();
-
-                var imageResult = new ImageResult()
-                {
-                    FilePath = Path.Combine(uploads, fileToUpload.FileName),
-                    Latitude = location.Latitude,
-                    Longitude = location.Longitude
-                };
 
                 return Ok(JsonConvert.SerializeObject(imageResult));
             }
             catch (Exception e)
             {
                 // log e
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
-        public IActionResult Add(string productName, string placeName, double? latitude, double? longitude)
+
+        /// <summary>
+        /// <c>Add</c> Adds a product and place to the database
+        /// Route: <c>/Product/Add</c>
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <param name="placeName"></param>
+        /// <param name="placeLatitude"></param>
+        /// <param name="placeLongitude"></param>
+        /// <param name="fileName"></param>
+        /// <returns>Status code</returns>
+        public IActionResult Add(string productName, string placeName, double? placeLatitude, double? placeLongitude, string fileName)
         {
             try
             {
@@ -93,7 +126,7 @@ namespace WhatsIn.Controllers
                     return BadRequest();
                 }
 
-                if (!LocationHelper.IsValidLocation(latitude, longitude))
+                if (!LocationHelper.IsValidLocation(placeLatitude, placeLongitude))
                 {
                     return BadRequest();
                 }
@@ -101,7 +134,7 @@ namespace WhatsIn.Controllers
                 var place = _places.GetPlace(placeName);
                 if (place == null)
                 {
-                    place = _places.AddPlace(placeName, latitude.Value, longitude.Value);
+                    place = _places.AddPlace(placeName, placeLatitude.Value, placeLongitude.Value);
                 }
 
                 var product = _products.GetProduct(productName);
@@ -110,7 +143,7 @@ namespace WhatsIn.Controllers
                     product = _products.AddProduct(productName);
                 };
 
-                var post = _posts.Add(product.Id, place.Id);
+                var post = _posts.Add(product.Id, place.Id, fileName);
 
                 place.Posts.ToList().Add(post);
                 product.Posts.ToList().Add(post);
@@ -127,6 +160,24 @@ namespace WhatsIn.Controllers
             }
         }
 
+
+        /// <summary>
+        /// <c>FindProducts</c> performs a wildcard search on product names
+        /// Route: <c>/Product/FindProducts</c>
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>
+        /// JSON collection of places with matching products
+        ///
+        /// <example>
+        /// <code>
+        /// ?productName=bread
+        ///
+        /// [{"PlaceName":"The Food Shop","ProductName":"bread","Latitude":51.458068,"Longitude":-2.591259,"ImageHref":""},
+        /// {"PlaceName":"The Other Food Shop","ProductName":"loaf of bread","Latitude":51.458068,"Longitude":-2.591259,"ImageHref":"637223858708524907.jpg"}]
+        /// </code>
+        /// </example>
+        /// </returns>
         public IActionResult FindProducts(string productName)
         {
             IEnumerable<int> productIds = _products.GetWildCardIds(productName);
@@ -140,12 +191,19 @@ namespace WhatsIn.Controllers
                 var place = _places.GetPlace(post.PlaceId);
                 var product = _products.GetProduct(post.ProductId);
 
+                var imageHref = "";
+                if (!string.IsNullOrWhiteSpace(post.ImageFileName))
+                {
+                    imageHref = $"{Request.Scheme}://{Request.Host}/ImageUploads/{post.ImageFileName}";
+                }
+
                 results.Add(new SearchResult()
                 {
                     PlaceName = place.Name,
                     ProductName = product.Name,
                     Longitude = place.Longitude,
-                    Latitude = place.Latitude
+                    Latitude = place.Latitude,
+                    ImageHref = imageHref
                 });
             }
 

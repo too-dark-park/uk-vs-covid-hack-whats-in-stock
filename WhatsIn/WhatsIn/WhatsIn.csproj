@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>c18d349f-75fc-4c30-baa9-a72be209fd1e</UserSecretsId>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +24,10 @@
 
   <ItemGroup>
     <Folder Include="ImageUploads\" />
-  </ItemGroup>
+  </ItemGroup>   
 
+	<Target Name="CreateImageUploadsFolder" AfterTargets="AfterPublish">
+	  <MakeDir Directories="$(PublishDir)ImageUploads" Condition="!Exists('$(PublishDir)ImageUploads')" /> 
+	</Target>
 
 </Project>
