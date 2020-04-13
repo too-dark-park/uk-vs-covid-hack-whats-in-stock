@@ -68,13 +68,14 @@ namespace WhatsIn.Controllers
 
                 GeoLocation location = gps.GetGeoLocation();
 
-                var coordinates = new Coordinates()
+                var imageResult = new ImageResult()
                 {
+                    FilePath = Path.Combine(uploads, fileToUpload.FileName),
                     Latitude = location.Latitude,
                     Longitude = location.Longitude
                 };
 
-                return Ok(JsonConvert.SerializeObject(coordinates));
+                return Ok(JsonConvert.SerializeObject(imageResult));
             }
             catch (Exception e)
             {
