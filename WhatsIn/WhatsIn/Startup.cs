@@ -55,6 +55,13 @@ namespace WhatsIn
             services.AddScoped<IProducts, Products>();
             services.AddScoped<IPosts, Posts>();
 
+            services.AddCors(o => o.AddPolicy("WhatsInPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddMemoryCache();
 
             // add any new services to the collection here
@@ -71,6 +78,8 @@ namespace WhatsIn
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("WhatsInPolicy");
 
             app.UseAuthorization();
 
