@@ -48,7 +48,7 @@ namespace WhatsIn.Controllers
                 var uploads = Path.Combine(_environment.ContentRootPath, "ImageUploads");
 
                 using (var inStream = fileToUpload.OpenReadStream())
-                using (var image = SixLabors.ImageSharp.Image.Load(inStream, out IImageFormat format))
+                using (var image = Image.Load(inStream, out IImageFormat format))
                 {
                     image.Mutate(
                         i => i.Resize(200, 200));
