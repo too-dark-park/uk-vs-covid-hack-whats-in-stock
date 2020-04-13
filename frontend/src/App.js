@@ -21,7 +21,7 @@ class App extends React.Component {
 
   async getJson() {
     const linkJson =
-      "https://whatsin.whiscode.dotnetcloud.co.uk/WeatherForecast";
+      "https://whatsin.whiscode.dotnetcloud.co.uk/product/add?productName=dhkds&placeName=khfkjdsjf&latitude=51.458068&longitude=-2.591259";
     const fetchJson = await fetch(linkJson, { cache: "no-cache" });
     const dataJson = await fetchJson.json();
     if (this._isMounted) {
@@ -76,7 +76,7 @@ class App extends React.Component {
           <footer>
             <a
               className="App-link"
-              href="https://github.com/too-dark-park/uk-vs-covid-hack-whats-in-stock"
+              href="https://whatsin.whiscode.dotnetcloud.co.uk/product/add?productName=dhkds&placeName=khfkjdsjf&latitude=51.458068&longitude=-2.591259"
               target="_blank"
               rel="noopener noreferrer"
             >
