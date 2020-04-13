@@ -44,7 +44,7 @@ namespace WhatsIn.Controllers
         /// </summary>
         /// <param name="fileToUpload"></param>
         /// <returns>
-        /// JSON
+        /// JSON of newly generated image name with extracted coordinates
         ///
         /// <example>
         /// <code>
