@@ -1,19 +1,18 @@
 import React from "react";
 import "./App.css";
 import Button from "./Components/Button/Button";
-// import logo from "./logo_final.png";
 import Menu from "./Components/Menu/Menu";
-import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
-import FindProduct from './Pages/FindProduct';
-import SubmitProduct from './Pages/SubmitProduct';
-import HomePage from './Pages/HomePage';
+import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import FindProduct from "./Components/Pages/FindProduct";
+import SubmitProduct from "./Components/Pages/SubmitProduct";
+import HomePage from "./Components/Pages/HomePage";
+import Logo from "./Components/Logo/Logo";
 
 class App extends React.Component {
   _isMounted = false;
 
   constructor(props) {
     super(props);
-
     this.state = {
       data: this.getJson(),
       error: false,
@@ -49,6 +48,7 @@ class App extends React.Component {
     return error ? (
       <div>Ooops... something went wrong.</div>
     ) : (
+      <Router>
         <div className="main-container">
           {data && console.log(this.state.data)}
           {/*Menu component*/}
@@ -57,25 +57,21 @@ class App extends React.Component {
           </header>{" "}
           {/*Routing*/}
           <section>
-            <Router>
-              <div className="button-container">
-                <Switch>
-                  <Route exact path='/' component={HomePage} />
-                  <Route exact path='/submit' component={SubmitProduct} />
-                  <Route exact path='/find' component={FindProduct} />
-                </Switch>
-
-                <Link to='/submit'>
-                  <Button className="landing-button">submit a product</Button>
-                </Link>
-                <Link to='/find'>
-                  <Button className="landing-button">find a product</Button>
-                </Link>
-                <Link to='/'>
-                  <Button className="landing-button">go back to the start</Button>
-                </Link>
-              </div>
-            </Router>
+            {/* <HomePage /> */}
+            <Switch>
+              {/* <Route path="/" component={Logo} /> */}
+              <Route exact path="/" component={(HomePage, Logo)} />
+              <Route exact path="/submit" component={SubmitProduct} />
+              <Route exact path="/find" component={FindProduct} />
+            </Switch>
+            <div className="button-container">
+              <Link to="/submit">
+                <Button className="landing-button">submit a product</Button>
+              </Link>
+              <Link to="/find">
+                <Button className="landing-button">find a product</Button>
+              </Link>
+            </div>
           </section>
           <footer>
             <a
@@ -85,10 +81,11 @@ class App extends React.Component {
               rel="noopener noreferrer"
             >
               Link to our GitHub
-          </a>
+            </a>
           </footer>
         </div>
-      );
+      </Router>
+    );
   }
 }
 
