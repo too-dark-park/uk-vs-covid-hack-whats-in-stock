@@ -5,14 +5,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using WhatsIn.Helpers;
@@ -65,6 +62,7 @@ namespace WhatsIn.Controllers
 
                 if (gps == null)
                 {
+                    System.IO.File.Delete(Path.Combine(uploads, fileToUpload.FileName));
                     return new StatusCodeResult(StatusCodes.Status422UnprocessableEntity);
                 }
 
