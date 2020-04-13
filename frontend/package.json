@@ -9,6 +9,7 @@
     "@types/googlemaps": "^3.39.3",
     "@types/markerclustererplus": "^2.1.33",
     "core-js": "^3.6.5",
+    "google-maps-react": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
