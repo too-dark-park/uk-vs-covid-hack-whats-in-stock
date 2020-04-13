@@ -1,29 +1,29 @@
 import React from "react";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import "./Map.css";
 
 class GoogleMap extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      latitude: "",
-      longitude: "",
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    this.getGeolocation();
+    // this.getGeolocation();
   }
-  getGeolocation() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        let latitude = position.coords.latitude.toFixed(6);
-        let longitude = position.coords.longitude.toFixed(6);
-        console.log(latitude, longitude);
-      });
-    } else {
-      console.log("Not Available");
-    }
-  }
+  //   getGeolocation() {
+  //     if ("geolocation" in navigator) {
+  //       navigator.geolocation.getCurrentPosition(function (position) {
+  //         let latitude = position.coords.latitude.toFixed(6);
+  //         let longitude = position.coords.longitude.toFixed(6);
+  //         return latitude, longitude;
+  //       });
+  //     } else {
+  //       window.alert(
+  //         "We are having trouble locating you, did you consent to share your location?"
+  //       );
+  //     }
+  //   }
 
   render() {
     const style = {
@@ -41,7 +41,10 @@ class GoogleMap extends React.Component {
             lng: -120.7060049,
           }}
           style={style}
-        />
+          onClick={this.onMapClicked}
+        >
+          <Marker onClick={this.onMarkerClick} name={"Current location"} />
+        </Map>
       </div>
     );
   }
